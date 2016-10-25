@@ -53,6 +53,7 @@ int main()
 
 	return 0;
 }
+// g++ -std=c++11 -pthread -I /usr/include main.cpp -o main /usr/lib/raylite/libraylite.a
 ```
 
 Results:
