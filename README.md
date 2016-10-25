@@ -1,6 +1,6 @@
 Raylite is a small paraller raytracer engine.
 
-Example:
+# Example: #
 
 
 ```
@@ -56,12 +56,12 @@ int main()
 // g++ -std=c++11 -pthread -I /usr/include main.cpp -o main /usr/lib/raylite/libraylite.a
 ```
 
-Results:
+# Results: #
 
-Preview:
+## Preview: ##
 
 ![preview.png](https://bitbucket.org/repo/Kk4gR6/images/1829607941-preview.png)
 
-Final:
+## Final: ##
 
 ![final.png](https://bitbucket.org/repo/Kk4gR6/images/763008764-final.png)
