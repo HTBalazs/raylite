@@ -5,7 +5,20 @@ project(Raylite_project)
 #Bring the headers into the project
 include_directories(include)
 
-#Add sources:
+#Add sources and includes:
 file(GLOB SOURCES "src/*.cpp")
+file(GLOB INCLUDES "include/*.h")
 
-add_executable(bin/raylite ${SOURCES})
+# Define library and include directories
+set(STATIC_LIB_DIR /usr/lib/raylite)
+set(INCLUDE_DIR /usr/include/raylite)
+
+# set archive output to <project_directory>/lib
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY lib/)
+
+# generate libraylite.a file
+add_library(raylite STATIC ${SOURCES})
+
+# install lib and include directories
+install(TARGETS raylite DESTINATION ${STATIC_LIB_DIR})
+install(FILES ${INCLUDES} DESTINATION ${INCLUDE_DIR})
