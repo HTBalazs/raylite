@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.9)
+cmake_minimum_required(VERSION 3.5)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -std=c++11")
 project(Raylite_project)
 
@@ -10,8 +10,8 @@ file(GLOB SOURCES "src/*.cpp")
 file(GLOB INCLUDES "include/*.h")
 
 # Define library and include directories
-set(STATIC_LIB_DIR /usr/lib/raylite)
-set(INCLUDE_DIR /usr/include/raylite)
+set(STATIC_LIB_DIR /usr/local/lib/raylite)
+set(INCLUDE_DIR /usr/local/include/raylite)
 
 # set archive output to <project_directory>/lib
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY lib/)
