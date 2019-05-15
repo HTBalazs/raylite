@@ -19,6 +19,7 @@
 */
 
 #include <thread>
+#include <algorithm>
 #include "RayTracer.h"
 
 #define random(min, max) (((float)(rand()%1000)/1000.0f)*((max)-(min))+(min))
@@ -76,17 +77,23 @@ void RayTracer::render(std::string filename, int w, int h, ScenePtr& scene, unsi
 
 	std::vector<std::thread> th;
 
-	int sqsize = 10;
+	int sqsize = 450;
 
 	// divide image to squares and process each square independently on different threads
 	int h_begin = 0;
 	int h_end = -1;
-	for(int i=0; i<w/sqsize; ++i){
+	while(h_end<w-1) {
 		h_end += sqsize;
+		if(h_end>w) {
+			h_end = w-1;
+		}
 		int v_begin = 0;
 		int v_end = -1;
-		for(int j=0; j<h/sqsize; ++j){
+		while(v_end<h-1) {
 			v_end += sqsize;
+			if(v_end>h) {
+				v_end = h-1;
+			}
 			th.push_back(std::thread{process, h_begin, h_end, v_begin, v_end});
 			v_begin = v_end+1;
 		}
