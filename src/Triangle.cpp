@@ -20,13 +20,14 @@
 
 #include "Triangle.h"
 
-Triangle::Triangle(Vect3 point1, Vect3 point2, Vect3 point3, Material mat) {
+Triangle::Triangle(Vect3 point1, Vect3 point2, Vect3 point3, Material mat, bool tr/*=false*/) {
 	p1=point1;
 	p2=point2;
 	p3=point3;
 	pos = (p1+p2+p3)/3;
 	normal = crossProduct(point2-point1, point3-point1).normalize();
 	material = mat;
+	terminal = tr;
 };
 
 Vect3 Triangle::getIntersection(Rayptr const& ray, bool& intersect) const {

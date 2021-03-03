@@ -26,6 +26,7 @@ class Ray final {
 public:
 	Vect3 start;
 	Vect3 direction;
+    float length;
 	
 	Ray() = delete;
 	explicit Ray(Vect3 s, Vect3 d) : start{s}, direction{d.normalize()} {}

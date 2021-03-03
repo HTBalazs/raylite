@@ -28,6 +28,7 @@
 
 class Object {
 public:
+    bool terminal = false;
 	Vect3 pos;
 	Material material;
 

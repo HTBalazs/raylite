@@ -77,8 +77,12 @@ Color Scene::getRayColor(Rayptr oldray, float& depth, unsigned int numBounces, u
 	// Get closest object (==nullptr if no intersection)
 	Object* intersected = findClosestObject(oldray, depth);
 
+	oldray->length = depth;
+
 	if(intersected == nullptr) {
 		return bg;
+	} else if(intersected->terminal) {
+		return intersected->material.color1;
 	}
 
 	Vect3 ip;
@@ -99,6 +103,7 @@ Color Scene::getRayColor(Rayptr oldray, float& depth, unsigned int numBounces, u
 	float currentdepth;
 	if(numBounces<maxBounce) {
 		illumination +=  intersected->material.fresnel*getRayColor(newray, currentdepth, ++numBounces, maxBounce);
+		oldray->length += newray->length;
 	}
 
 	return illumination;

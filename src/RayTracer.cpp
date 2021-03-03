@@ -25,6 +25,7 @@
 #define random(min, max) (((float)(rand()%1000)/1000.0f)*((max)-(min))+(min))
 
 void RayTracer::render(std::string filename, int w, int h, ScenePtr& scene, unsigned int aasamples, unsigned int dfsamples, unsigned int maxBounces) const {
+	std::mutex mtx;
 	// Smart pointers for pixel color and pixel depth
 	PixelDataPtr<Color> color{new PixelData<Color>{w*h}};
 	PixelDataPtr<float> depth{new PixelData<float>{w*h}};
@@ -68,6 +69,9 @@ void RayTracer::render(std::string filename, int w, int h, ScenePtr& scene, unsi
 							Rayptr ray{new Ray{tmpcam->pos, sampledir}};
 							unsigned int aasamples2 = aasamples*aasamples; // number of aa samples
 							color->data[j*w+i] += scene->getRayColor(ray, depth->data[j*w+i], bounces, maxBounces)/(float)aasamples2/(float)dfsamples;
+							mtx.lock();
+							rays.push_back(*ray);
+							mtx.unlock();
 						}
 					}
 				}
@@ -77,7 +81,7 @@ void RayTracer::render(std::string filename, int w, int h, ScenePtr& scene, unsi
 
 	std::vector<std::thread> th;
 
-	int sqsize = 450;
+	int sqsize = 200;
 
 	// divide image to squares and process each square independently on different threads
 	int h_begin = 0;
@@ -105,4 +109,8 @@ void RayTracer::render(std::string filename, int w, int h, ScenePtr& scene, unsi
 
 	// Save pixel colors to BMP
 	savebmp(filename, w, h, color);
+}
+
+std::vector<Ray> const& RayTracer::getRays() const {
+	return rays;
 }

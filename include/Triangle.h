@@ -29,7 +29,7 @@ public:
 	Vect3 normal;
 	
 	Triangle() = delete;
-	explicit Triangle(Vect3, Vect3, Vect3, Material);	
+	explicit Triangle(Vect3, Vect3, Vect3, Material, bool tr=false);
 	Triangle(Triangle const&) = default;
 	Triangle& operator=(Triangle const&) = default;
 

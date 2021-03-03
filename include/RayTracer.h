@@ -20,16 +20,19 @@
 
 #pragma once
 
-#include <memory>
 #include "Scene.h"
 #include "Ray.h"
 #include "Color.h"
 #include "PixelData.h"
+#include <memory>
+#include <vector>
 
 class RayTracer final {
+	mutable std::vector<Ray> rays;
 public:
 	explicit RayTracer() {}
 	void render(std::string filename, int w, int h, ScenePtr& sceneptr, unsigned int, unsigned int, unsigned int) const;
+	std::vector<Ray> const& getRays() const;
 };
 
 using RayTracerPtr = std::shared_ptr<RayTracer>;
